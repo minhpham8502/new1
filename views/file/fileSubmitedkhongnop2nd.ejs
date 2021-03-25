@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/homestudent.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('.checkbtn').click(function(){
+          $('ul').toggleClass('show');
+        });
+      });
+    </script>
+     
+    <title>Document</title>
+</head>
+<body>
+  <div class="layout">
+    <div class="header">
+      <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fa fa-bars" ></i>
+        </label>
+      <span class="logout">&times;</span>
+
+    </div>
+        <div class="layout1">
+            <div class="menu">
+                <ul>
+                    <li><a href="indexstudent">Home</a></li>
+                    <li id="popupdk">Uploadfile</li>
+                    <li><a href="/file/fileSubmited" >File Submited</a></li>
+                </ul>
+
+            </div>
+            <div class="content">
+              <h1>Summit files:</h1>
+    <p style="color: #fff;">Deadline for upload 2nd: <%= deadline2 %> (yy-mm-dd hh:mm)</p>
+    <h1> bài đã Pass 1st dead line</h1>
+    <table class="table">
+      
+    <tr>
+        <th>Lần 1</th>
+        <th>Status</th>
+        <th>upload 2nd</th>
+    </tr>
+    
+    <% data.forEach(function(data) { %>
+      <tr>
+          <%if (data.status =="Pass") { %>
+          <td><a href="/download/<%= data._id %>"><%= data.nameFile %></a></td>
+          <td><%= data.status %></td>
+          <td>
+              <p>khongcannop2nd</p>
+          <% }  %>
+      </tr>
+    <% }); %>
+    </table>  
+    <h1> bài đã Pass 2nd dead line</h1>
+
+    <table class="table">
+      
+      <tr>
+          <th>First submit </th>
+          <th>Status</th>
+          <th>2nd submit</th>
+          <th>Satus</th>
+          <th>Update</th>
+      </tr>
+
+      <% data.forEach(function(data) { %>
+        <tr>
+            <%if (data.status !="" && data.nameFile2 && data.status2 =="Pass") { %>
+            <td><a href="/download/<%= data._id %>"><%= data.nameFile %></a></td>
+            <td><%= data.status %></td>
+            <td><a href="/download2/<%= data._id %>"><%= data.nameFile2 %></td>
+            <td><%= data.status2 %></td>
+            <td>không được update file nữa</td>
+            <% }  %>
+        </tr>   
+      <% }); %>
+      <th> bài 2nd đang chờ phê duyệt </th>
+
+      <% data.forEach(function(data) { %>
+        <tr>
+            <%if (data.status !="" && data.nameFile2 && data.status2 !="not rate") { %>
+            <td><a href="/download/<%= data._id %>"><%= data.nameFile %></a></td>
+            <td><%= data.status %></td>
+            <td><a href="/download2/<%= data._id %>"><%= data.nameFile2 %></td>
+            <td><%= data.status2 %></td>
+            <td><p>Hết hạn nộp bài lần 2</p></td>
+            <% }  %>
+        </tr> 
+      <% }); %>
+      <th>Bài chưa nộp 2nd</th>
+      <% data.forEach(function(data) { %>
+        <tr>
+            <%if (data.status !="" &&! data.nameFile2) { %>
+              <td><a href="/download/<%= data._id %>"><%= data.nameFile %></a></td>
+              <td><%= data.status %></td>
+              <td><a href="/download2/<%= data._id %>"><%= data.nameFile2 %></td>
+              <td><%= data.status2 %></td>
+              <td><p>Hết hạn nộp bài lần 2</p></td>
+              <% }  %>
+          </tr> 
+        <% }); %>
+  </table>
+          
+      </div>
+      </div>
+  </div>
+    
+    <div class="footer">
+        <p>@University-2021</p>
+    </div>
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
